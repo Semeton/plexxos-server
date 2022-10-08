@@ -7,7 +7,7 @@ const encode = require("../middlewares/jwt.js");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.json({ status: true, message: "Plexxos server is running" });
+  res.json({ status: true, message: "Plexxos server is now running" });
 });
 
 router.post("/login/:userId", encode, (req, res, next) => {

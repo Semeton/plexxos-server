@@ -38,6 +38,6 @@ app.use("*", (req, res) => {
 const PORT = process.env.PORT || "3100";
 app.listen(PORT, (error) => {
   return !error
-    ? console.log(`Server is running on port:: http://localhost:${PORT}/`)
+    ? console.log(`Plexxos server is running on http://localhost:${PORT}/`)
     : console.log("Error occurred, server can't start", error);
 });
