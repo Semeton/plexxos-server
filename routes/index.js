@@ -1,18 +1,11 @@
-const express = require("express");
+import express from "express";
 // controllers
-const users = require("../controllers/user.js");
+import users from "../controllers/user.js";
 // middlewares
-const encode = require("../middlewares/jwt.js");
+import { encode } from "../middlewares/jwt.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({ status: true, message: "Plexxos server is now running" });
-});
+router.post("/login/:userId", encode, (req, res, next) => {});
 
-router.post("/login/:userId", encode, (req, res, next) => {
-  //   console.log("hello", req);
-});
-
-module.exports = router;
-// export default router;
+export default router;

@@ -1,7 +1,6 @@
-const express = require("express");
-
+import express from "express";
 // controllers
-const deleteController = require("../controllers/delete.js");
+import deleteController from "../controllers/delete.js";
 
 const router = express.Router();
 
@@ -9,4 +8,4 @@ router
   .delete("/room/:roomId", deleteController.deleteRoomById)
   .delete("/message/:messageId", deleteController.deleteMessageById);
 
-module.exports = router;
+export default router;

@@ -1,19 +1,19 @@
-const express = require("express");
-const cors = require("cors");
-const cookieSession = require("cookie-session");
-const logger = require("morgan");
+import express from "express";
+import cors from "cors";
+import cookieSession from "cookie-session";
+import logger from "morgan";
 
 // mongo connection
-require("../config/mongo.js");
+import "../config/mongo.js";
 
 // routes
-const indexRouter = require("../routes/index.js");
-const userRouter = require("../routes/user.js");
-const forumRouter = require("../routes/forum.js");
-const deleteRouter = require("../routes/delete.js");
+import indexRouter from "../routes/index.js";
+import userRouter from "../routes/user.js";
+import forumRouter from "../routes/forum.js";
+import deleteRouter from "../routes/delete.js";
 
 // middlewares
-const decode = require("../middlewares/jwt.js");
+import { decode } from "../middlewares/jwt.js";
 
 const app = express();
 app.use(cors());

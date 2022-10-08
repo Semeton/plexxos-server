@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const config = require("./index.js");
+import mongoose from "mongoose";
+import config from "./index.js";
 
 const LOCAL_CONNECTION_URL = `mongodb://${config.db.local_url}`;
 const LIVE_CONNECTION_URL = `${config.db.live_url}`;

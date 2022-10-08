@@ -1,7 +1,6 @@
-const express = require("express");
-
+import express from "express";
 // controllers
-const forum = require("../controllers/forum.js");
+import forum from "../controllers/forum.js";
 
 const router = express.Router();
 
@@ -12,4 +11,4 @@ router
   .post("/:roomId/message", forum.postMessage)
   .put("/:roomId/mark-read", forum.markConversationReadByRoomId);
 
-module.exports = router;
+export default router;
