@@ -3,6 +3,9 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const logger = require("morgan");
 
+// mongo connection
+require("../config/mongo.js");
+
 // routes
 const indexRouter = require("../routes/index.js");
 const userRouter = require("../routes/user.js");
