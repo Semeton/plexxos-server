@@ -22,9 +22,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
-app.use("/users", userRouter);
-app.use("/room", decode, forumRouter);
-app.use("/delete", deleteRouter);
+app.use("/api/users", userRouter);
+app.use("/api/room", decode, forumRouter);
+app.use("/api/delete", deleteRouter);
 
 /** catch 404 and forward to error handler */
 app.use("*", (req, res) => {
