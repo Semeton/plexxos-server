@@ -1,4 +1,4 @@
 export default {
-  deleteRoomById: async (req, res) => {},
+  deleteForumById: async (req, res) => {},
   deleteMessageById: async (req, res) => {},
 };
