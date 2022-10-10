@@ -1,6 +1,4 @@
-// utils
 import makeValidation from "@withvoid/make-validation";
-// models
 import UserModel, { USER_TYPES } from "../models/User.js";
 
 export default {
@@ -17,6 +15,7 @@ export default {
           type: { type: types.enum, options: { enum: USER_TYPES } },
         },
       }));
+
       if (!validation.success) return res.status(400).json(validation);
 
       const { firstName, lastName, email, type } = req.body;
