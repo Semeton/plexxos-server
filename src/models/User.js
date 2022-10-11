@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// Create a new user object
 userSchema.statics.createUser = async function (
   firstName,
   lastName,
@@ -37,6 +38,37 @@ userSchema.statics.createUser = async function (
   try {
     const user = await this.create({ firstName, lastName, email, type });
     return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get one user by id
+userSchema.statics.getUserById = async function (id) {
+  try {
+    const user = await this.findOne({ _id: id });
+    if (!user) throw { error: "No user with this id found" };
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get all users
+userSchema.statics.getUsers = async function () {
+  try {
+    const users = await this.find();
+    return users;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Delete a user from the database
+userSchema.statics.deleteByUserById = async function (id) {
+  try {
+    const result = await this.remove({ _id: id });
+    return result;
   } catch (error) {
     throw error;
   }
