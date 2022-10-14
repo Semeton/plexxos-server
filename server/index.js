@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
 app.use("/api/users", userRouter);
-app.use("/api/room", decode, forumRouter);
+app.use("/api/forum", decode, forumRouter);
 app.use("/api/delete", deleteRouter);
 
 /** catch 404 and forward to error handler */
