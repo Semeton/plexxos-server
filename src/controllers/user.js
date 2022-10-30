@@ -1,5 +1,5 @@
 import makeValidation from "@withvoid/make-validation";
-import UserModel, { USER_TYPES } from "../models/User.js";
+import UserModel from "../models/User.js";
 
 export default {
   onGetAllUsers: async (req, res) => {
@@ -26,7 +26,9 @@ export default {
           firstName: { type: types.string },
           lastName: { type: types.string },
           email: { type: types.string },
-          type: { type: types.enum, options: { enum: USER_TYPES } },
+          faciltyCode: { type: types.string },
+          type: { type: types.string },
+          plan: { type: types.number, options: { enum: PLAN_TYPES } },
         },
       }));
 
