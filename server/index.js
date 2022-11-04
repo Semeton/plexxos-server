@@ -9,6 +9,7 @@ import "../src/config/mongo.js";
 // routes
 import indexRouter from "../src/routes/index.js";
 import userRouter from "../src/routes/user.js";
+import facilityRouter from "../src/routes/facility.js";
 import forumRouter from "../src/routes/forum.js";
 import deleteRouter from "../src/routes/delete.js";
 
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
 app.use("/api/users", userRouter);
+app.use("/api/facilities", facilityRouter);
 app.use("/api/forum", decode, forumRouter);
 app.use("/api/delete", deleteRouter);
 
