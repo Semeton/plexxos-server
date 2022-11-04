@@ -1,11 +1,5 @@
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
-// import crypto from "crypto";
-
-// export const USER_TYPES = {
-//   ADMIN: "admin",
-//   STAFF: "staff",
-// };
 
 const userSchema = new mongoose.Schema(
   {
