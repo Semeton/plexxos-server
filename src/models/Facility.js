@@ -20,7 +20,7 @@ const facilitySchema = new mongoose.Schema(
       type: String,
       default: "admin",
     },
-    activationCode: {
+    facilityCode: {
       type: String,
       default: "plx-" + crypto.randomBytes(5).toString("hex"),
     },
@@ -32,7 +32,11 @@ const facilitySchema = new mongoose.Schema(
 );
 
 // Create a new user object
-userSchema.statics.createFacility = async function (facilityName, email, plan) {
+facilitySchema.statics.createFacility = async function (
+  facilityName,
+  email,
+  plan
+) {
   try {
     const user = await this.create({ facilityName, email, plan });
     return user;
