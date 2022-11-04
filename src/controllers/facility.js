@@ -1,19 +1,19 @@
 import makeValidation from "@withvoid/make-validation";
-import FacilityModel from "../models/Facility";
+import FacilityModel from "../models/Facility.js";
 
 export default {
   onGetAllFacilities: async (req, res) => {
     try {
-      const users = await FacilityModel.getFacilities();
-      return res.status(200).json({ success: true, users });
+      const facilities = await FacilityModel.getFacilities();
+      return res.status(200).json({ success: true, facilities });
     } catch (error) {
       return res.status(500).json({ success: false, error: error });
     }
   },
-  onGetFaciltyById: async (req, res) => {
+  onGetFacilityById: async (req, res) => {
     try {
-      const facility = await FaciltyModel.getFaciltyById(req.params.id);
-      return res.status(200).json({ success: true, user });
+      const facility = await FaciltyModel.getFacilityById(req.params.id);
+      return res.status(200).json({ success: true, facility });
     } catch (error) {
       return res.status(500).json({ success: false, error: error });
     }
@@ -32,18 +32,23 @@ export default {
       if (!validation.success) return res.status(400).json(validation);
 
       const { firstName, lastName, email, type } = req.body;
-      const user = await UserModel.createUser(firstName, lastName, email, type);
+      const user = await FacilityModel.createUser(
+        firstName,
+        lastName,
+        email,
+        type
+      );
       return res.status(200).json({ success: true, user });
     } catch (error) {
       return res.status(500).json({ success: false, error: error });
     }
   },
-  onDeleteUserById: async (req, res) => {
+  onDeleteFacilityById: async (req, res) => {
     try {
-      const user = await UserModel.deleteByUserById(req.params.id);
+      const facility = await FacilityModel.deleteByFacilityById(req.params.id);
       return res.status(200).json({
         success: true,
-        message: `Deleted a count of ${user.deletedCount} user.`,
+        message: `Deleted a count of ${facility.deletedCount} facility.`,
       });
     } catch (error) {
       return res.status(500).json({ success: false, error: error });
