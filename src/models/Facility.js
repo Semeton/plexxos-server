@@ -31,7 +31,7 @@ const facilitySchema = new mongoose.Schema(
   }
 );
 
-// Create a new user object
+// Create a new facilty object
 facilitySchema.statics.createFacility = async function (
   facilityName,
   email,
@@ -45,7 +45,7 @@ facilitySchema.statics.createFacility = async function (
   }
 };
 
-// Get one user by id
+// Get a facilty by id
 facilitySchema.statics.getFacilityById = async function (id) {
   try {
     const facility = await this.findOne({ _id: id });
@@ -59,14 +59,14 @@ facilitySchema.statics.getFacilityById = async function (id) {
 // Get all facilities
 facilitySchema.statics.getFacilities = async function () {
   try {
-    const users = await this.find();
-    return users;
+    const facilities = await this.find();
+    return facilities;
   } catch (error) {
     throw error;
   }
 };
 
-// Delete a user from the database
+// Delete a facility from the database
 facilitySchema.statics.deleteByfacilityById = async function (id) {
   try {
     const result = await this.remove({ _id: id });
