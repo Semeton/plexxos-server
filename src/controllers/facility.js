@@ -12,7 +12,7 @@ export default {
   },
   onGetFacilityById: async (req, res) => {
     try {
-      const facility = await FaciltyModel.getFacilityById(req.params.id);
+      const facility = await FacilityModel.getFacilityById(req.params.id);
       return res.status(200).json({ success: true, facility });
     } catch (error) {
       return res.status(500).json({ success: false, error: error });
