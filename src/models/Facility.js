@@ -38,8 +38,8 @@ facilitySchema.statics.createFacility = async function (
   plan
 ) {
   try {
-    const user = await this.create({ facilityName, email, plan });
-    return user;
+    const facility = await this.create({ facilityName, email, plan });
+    return facility;
   } catch (error) {
     throw error;
   }
