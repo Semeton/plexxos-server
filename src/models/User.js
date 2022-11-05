@@ -1,5 +1,7 @@
+import { json } from "express";
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
+import FacilityModel from "./Facility.js";
 
 const userSchema = new mongoose.Schema(
   {
