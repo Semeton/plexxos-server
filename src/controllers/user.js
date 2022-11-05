@@ -1,5 +1,6 @@
 import makeValidation from "@withvoid/make-validation";
 import UserModel from "../models/User.js";
+import FacilityModel from "../models/Facility.js";
 
 export default {
   onGetAllUsers: async (req, res) => {
@@ -26,16 +27,25 @@ export default {
           firstName: { type: types.string },
           lastName: { type: types.string },
           email: { type: types.string },
-          faciltyCode: { type: types.string },
-          type: { type: types.string },
-          plan: { type: types.number, options: { enum: PLAN_TYPES } },
+          facilityCode: { type: types.string },
         },
       }));
 
       if (!validation.success) return res.status(400).json(validation);
 
-      const { firstName, lastName, email, type } = req.body;
-      const user = await UserModel.createUser(firstName, lastName, email, type);
+      const { firstName, lastName, email, facilityCode } = req.body;
+      const exist = await FacilityModel.findOne({ facilityCode: facilityCode });
+      if (!exist) {
+        return res
+          .status(401)
+          .json({ success: false, error: "Facility code is invalid" });
+      }
+      const user = await UserModel.createUser(
+        firstName,
+        lastName,
+        email,
+        facilityCode
+      );
       return res.status(200).json({ success: true, user });
     } catch (error) {
       return res.status(500).json({ success: false, error: error });
