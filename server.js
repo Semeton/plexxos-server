@@ -4,17 +4,17 @@ import cookieSession from "cookie-session";
 import logger from "morgan";
 
 // mongo connection
-import "../src/config/mongo.js";
+import "./src/config/mongo.js";
 
 // routes
-import indexRouter from "../src/routes/index.js";
-import userRouter from "../src/routes/user.js";
-import facilityRouter from "../src/routes/facility.js";
-import forumRouter from "../src/routes/forum.js";
-import deleteRouter from "../src/routes/delete.js";
+import indexRouter from "./src/routes/index.js";
+import userRouter from "./src/routes/user.js";
+import facilityRouter from "./src/routes/facility.js";
+import forumRouter from "./src/routes/forum.js";
+import deleteRouter from "./src/routes/delete.js";
 
 // middlewares
-import { decode } from "../src/middlewares/jwt.js";
+import { decode } from "./src/middlewares/jwt.js";
 
 const app = express();
 app.use(cors());
