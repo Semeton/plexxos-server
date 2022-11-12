@@ -1,10 +1,7 @@
 import { json } from "express";
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import FacilityModel from "./Facility.js";
-
-const SALT_WORK_FACTOR = 10;
 
 const userSchema = new mongoose.Schema(
   {
@@ -15,6 +12,7 @@ const userSchema = new mongoose.Schema(
     firstName: String,
     lastName: String,
     email: String,
+    password: String,
     facilityCode: String,
     type: {
       type: String,
@@ -32,6 +30,7 @@ userSchema.statics.createUser = async function (
   firstName,
   lastName,
   email,
+  password,
   facilityCode
 ) {
   try {
@@ -39,6 +38,7 @@ userSchema.statics.createUser = async function (
       firstName,
       lastName,
       email,
+      password,
       facilityCode,
     });
     return user;
@@ -52,6 +52,17 @@ userSchema.statics.getUserById = async function (id) {
   try {
     const user = await this.findOne({ _id: id });
     if (!user) throw { error: "No user with this id found" };
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Get one user by email
+userSchema.statics.getUserByEmail = async function (email) {
+  try {
+    const user = await this.find({ email: email });
+    if (!user) throw { error: "No user with this email found" };
     return user;
   } catch (error) {
     throw error;

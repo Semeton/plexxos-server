@@ -1,4 +1,5 @@
 import express from "express";
+import user from "../controllers/user.js";
 // controllers
 import users from "../controllers/user.js";
 // middlewares
@@ -18,10 +19,11 @@ router.get("/api", (req, res, next) => {
     .json({ status: true, message: "Plexxos api server is running" });
 });
 
-router.post("/login/:userId", encode, (req, res, next) => {
+router.post("/login/:email", encode, (req, res, next) => {
   return res.status(200).json({
     success: true,
-    authorization: req.authToken,
+    authorization: req.res.authToken,
+    user: req.res.user,
   });
 });
 

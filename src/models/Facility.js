@@ -56,6 +56,17 @@ facilitySchema.statics.getFacilityById = async function (id) {
   }
 };
 
+// Get one facility by email
+facilitySchema.statics.getFacilityByEmail = async function (email) {
+  try {
+    const facility = await this.findOne({ email: email });
+    if (!facility) throw { error: "No facility with this email found" };
+    return facility;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Get all facilities
 facilitySchema.statics.getFacilities = async function () {
   try {

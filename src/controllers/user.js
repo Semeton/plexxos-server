@@ -19,6 +19,14 @@ export default {
       return res.status(500).json({ success: false, error: error });
     }
   },
+  onGetUserByEmail: async (req, res) => {
+    try {
+      const user = await UserModel.getUserByEmail(req.params.email);
+      return res.status(200).json({ success: true, user });
+    } catch (error) {
+      return res.status(500).json({ success: false, error: error });
+    }
+  },
   onCreateUser: async (req, res) => {
     try {
       const validation = makeValidation((types) => ({
@@ -27,13 +35,14 @@ export default {
           firstName: { type: types.string },
           lastName: { type: types.string },
           email: { type: types.string },
+          password: { type: types.string },
           facilityCode: { type: types.string },
         },
       }));
 
       if (!validation.success) return res.status(400).json(validation);
 
-      const { firstName, lastName, email, facilityCode } = req.body;
+      const { firstName, lastName, email, password, facilityCode } = req.body;
       const exist = await FacilityModel.findOne({ facilityCode: facilityCode });
       if (!exist) {
         return res
@@ -44,6 +53,7 @@ export default {
         firstName,
         lastName,
         email,
+        password,
         facilityCode
       );
       return res.status(200).json({ success: true, user });

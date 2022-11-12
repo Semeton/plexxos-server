@@ -7,27 +7,35 @@ const SECRET_KEY = "XTmGL1WDo6Bi21G52m3VHUK3BUAa2ToLu8Vs7fs=";
 
 export const encode = async (req, res, next) => {
   try {
-    const { userId } = req.params;
-    const facility = await FacilityModel.getFacilityById(userId);
+    const { email, password } = req.params;
+    const facility = await FacilityModel.getFacilityByEmail(email);
     const payload = {
-      userId: facility._id,
-      userType: facility.type,
+      facilityEmail: facility.email,
+      facilityPassword: facility.password,
+      facilityType: facility.type,
     };
     const authToken = jwt.sign(payload, SECRET_KEY);
-    console.log("Auth", authToken);
-    req.authToken = authToken;
+    if (password === payload.facilityPassword) {
+      console.log("Auth", authToken);
+      req.authToken = authToken;
+    } else {
+      return res
+        .status(400)
+        .json({ success: false, message: "Password mismatch" });
+    }
     next();
   } catch (error) {
     try {
-      const { userId } = req.params;
-      const user = await UserModel.getUserById(userId);
+      const { email } = req.params;
+      const user = await UserModel.getUserByEmail(email);
       const payload = {
-        userId: user._id,
+        userEmail: user.email,
+        userPassword: user.password,
         userType: user.type,
       };
       const authToken = jwt.sign(payload, SECRET_KEY);
       console.log("Auth", authToken);
-      req.authToken = authToken;
+      req.res = { authToken, user };
       next();
       return;
     } catch (error) {
