@@ -35,6 +35,11 @@ export const encode = async (req, res, next) => {
       };
       const authToken = jwt.sign(payload, SECRET_KEY);
       console.log("Auth", authToken);
+      if (user == []) {
+        return res
+          .status(400)
+          .json({ success: false, message: "User does not exist" });
+      }
       req.res = { authToken, user };
       next();
       return;
