@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 import crypto from "crypto";
 
+import bcrypt from "bcryptjs";
+const SALT_WORK_FACTOR = 10;
+
 export const PLAN_TYPES = {
   BASIC: 1,
   PREMIUM: 2,
@@ -30,6 +33,24 @@ const facilitySchema = new mongoose.Schema(
     collection: "facilities",
   }
 );
+
+facilitySchema.pre("save", function (next) {
+  var facility = this;
+
+  // only hash the password if it has been modified (or is new)
+  if (!facility.isModified("password")) return next();
+
+  // generate a salt
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    if (err) return next(err);
+
+    bcrypt.hash(facility.password, salt, function (err, hash) {
+      if (err) return next(err);
+      facility.password = hash;
+      next();
+    });
+  });
+});
 
 // Create a new facilty object
 facilitySchema.statics.createFacility = async function (
@@ -61,6 +82,18 @@ facilitySchema.statics.getFacilityByEmail = async function (email) {
   try {
     const facility = await this.findOne({ email: email });
     if (!facility) throw { error: "No facility with this email found" };
+    return facility;
+  } catch (error) {
+    throw error;
+  }
+};
+
+facilitySchema.statics.findByCredentials = async (email, password) => {
+  try {
+    const facility = await this.findOne({ email: email });
+    if (!facility) throw { error: "No facility with this email found" };
+    const isMatch = await bcrypt.compare(password, facility.password);
+    if (!isMatch) throw { error: "Incorrect password" };
     return facility;
   } catch (error) {
     throw error;
