@@ -19,11 +19,12 @@ router.get("/api", (req, res, next) => {
     .json({ status: true, message: "Plexxos api server is running" });
 });
 
-router.post("/login/:email", encode, (req, res, next) => {
+router.post("/api/login", encode, (req, res, next) => {
+  const { password, ...others } = req.res.user._doc;
   return res.status(200).json({
     success: true,
     authorization: req.res.authToken,
-    user: req.res.user,
+    user: others,
   });
 });
 
