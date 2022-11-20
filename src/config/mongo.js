@@ -4,7 +4,7 @@ import config from "./index.js";
 const LOCAL_CONNECTION_URL = `mongodb://${config.db.local_url}`;
 const LIVE_CONNECTION_URL = `${config.db.live_url}`;
 
-mongoose.connect(LIVE_CONNECTION_URL, {
+mongoose.connect(LOCAL_CONNECTION_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
