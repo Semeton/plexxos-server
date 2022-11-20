@@ -7,6 +7,7 @@ const router = express.Router();
 router
   .get("/", user.onGetAllUsers)
   .post("/", user.onCreateUser)
+  .post("/check", user.onCheckUserCredentials)
   .get("/:id", user.onGetUserById)
   .get("/me/:email", user.onGetUserByEmail)
   .delete("/:id", user.onDeleteUserById);
