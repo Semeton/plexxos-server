@@ -7,44 +7,33 @@ const SECRET_KEY = "XTmGL1WDo6Bi21G52m3VHUK3BUAa2ToLu8Vs7fs=";
 
 export const encode = async (req, res, next) => {
   try {
-    const { email, password } = req.params;
-    const facility = await FacilityModel.getFacilityByEmail(email);
+    const { email, password } = req.body;
+    const facility = await FacilityModel.findByCredentials(email, password);
     const payload = {
+      facilityId: facility._id,
       facilityEmail: facility.email,
-      facilityPassword: facility.password,
-      facilityType: facility.type,
     };
     const authToken = jwt.sign(payload, SECRET_KEY);
-    if (password === payload.facilityPassword) {
-      console.log("Auth", authToken);
-      req.authToken = authToken;
-    } else {
-      return res
-        .status(400)
-        .json({ success: false, message: "Password mismatch" });
-    }
+    console.log("Auth", authToken);
+    req.res = { authToken, facility };
     next();
   } catch (error) {
     try {
-      const { email } = req.params;
-      const user = await UserModel.getUserByEmail(email);
+      const { email, password } = req.body;
+      const user = await UserModel.findByCredentials(email, password);
       const payload = {
+        userId: user._id,
         userEmail: user.email,
-        userPassword: user.password,
-        userType: user.type,
       };
       const authToken = jwt.sign(payload, SECRET_KEY);
       console.log("Auth", authToken);
-      if (user == []) {
-        return res
-          .status(400)
-          .json({ success: false, message: "User does not exist" });
-      }
       req.res = { authToken, user };
       next();
       return;
     } catch (error) {
-      return res.status(400).json({ success: false, message: error.error });
+      return res
+        .status(400)
+        .json({ success: false, message: error.error, debug: "error is here" });
     }
     return res.status(400).json({ success: false, message: error.error });
   }
