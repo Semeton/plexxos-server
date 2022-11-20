@@ -27,6 +27,16 @@ export default {
       return res.status(500).json({ success: false, error: error });
     }
   },
+
+  onCheckUserCredentials: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const user = await UserModel.findByCredentials(email, password);
+      return res.status(200).json({ success: true, user });
+    } catch (error) {
+      return res.status(500).json({ success: false, error: error });
+    }
+  },
   onCreateUser: async (req, res) => {
     try {
       const validation = makeValidation((types) => ({
@@ -61,6 +71,7 @@ export default {
       return res.status(500).json({ success: false, error: error });
     }
   },
+
   onDeleteUserById: async (req, res) => {
     try {
       const user = await UserModel.deleteByUserById(req.params.id);
