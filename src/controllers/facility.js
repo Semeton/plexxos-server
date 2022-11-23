@@ -25,16 +25,24 @@ export default {
         checks: {
           facilityName: { type: types.string },
           email: { type: types.string },
+          password: { type: types.string },
           plan: { type: types.enum, options: { enum: PLAN_TYPES } },
         },
       }));
 
       if (!validation.success) return res.status(400).json(validation);
 
-      const { facilityName, email, plan } = req.body;
+      const { facilityName, email, password, plan } = req.body;
+      const exist = await FacilityModel.findOne({ email: email });
+      if (exist) {
+        return res
+          .status(401)
+          .json({ success: false, error: "Email already exist!" });
+      }
       const facility = await FacilityModel.createFacility(
         facilityName,
         email,
+        password,
         plan
       );
       return res.status(200).json({ success: true, facility });
