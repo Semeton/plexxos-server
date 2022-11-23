@@ -59,6 +59,12 @@ export default {
           .status(401)
           .json({ success: false, error: "Facility code is invalid" });
       }
+      const existMail = await UserModel.findOne({ email: email });
+      if (existMail) {
+        return res
+          .status(401)
+          .json({ success: false, error: "Email already exist!" });
+      }
       const user = await UserModel.createUser(
         firstName,
         lastName,
