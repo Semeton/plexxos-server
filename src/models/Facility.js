@@ -17,8 +17,14 @@ const facilitySchema = new mongoose.Schema(
       default: () => uuidv4().replace(/\-/g, ""),
     },
     facilityName: String,
-    email: String,
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      unique: true,
+    },
     plan: Number,
+    password: { type: String, trim: true, select: false },
     type: {
       type: String,
       default: "admin",
@@ -56,10 +62,11 @@ facilitySchema.pre("save", function (next) {
 facilitySchema.statics.createFacility = async function (
   facilityName,
   email,
+  password,
   plan
 ) {
   try {
-    const facility = await this.create({ facilityName, email, plan });
+    const facility = await this.create({ facilityName, email, password, plan });
     return facility;
   } catch (error) {
     throw error;
