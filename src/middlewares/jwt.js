@@ -31,9 +31,7 @@ export const encode = async (req, res, next) => {
       next();
       return;
     } catch (error) {
-      return res
-        .status(400)
-        .json({ success: false, message: error.error, debug: "error is here" });
+      return res.status(400).json({ success: false, message: error.error });
     }
     return res.status(400).json({ success: false, message: error.error });
   }
