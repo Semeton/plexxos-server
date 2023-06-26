@@ -52,6 +52,10 @@ The server should now be running on `http://localhost:3000`.
 
 Contributions are welcome! If you find any bugs or have suggestions for new features, please open an issue or submit a pull request. For major changes, please discuss them with the project maintainers first.
 
+## Live URL
+
+https://plexxos-server.onrender.com/
+
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
