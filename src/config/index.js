@@ -1,8 +1,9 @@
+import "dotenv/config";
+
 const config = {
   db: {
-    live_url:
-      "mongodb+srv://Semeton:Midonugbo_Tadegbe97@plexxos.eptrvht.mongodb.net/plexxosdb?retryWrites=true&w=majority",
-    local_url: "localhost:27017/plexxosdb",
+    live_url: process.env.LIVE_URL,
+    local_url: process.env.LOCAL_URL,
   },
 };
 
